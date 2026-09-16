@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moc Te Media — Photo &amp; Video Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F4F1;
+    --ink: #1C1B19;
+    --ink-soft: #6B6862;
+    --accent: #B5472B;
+    --line: #D8D5CE;
+    --surface: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  a { color: inherit; }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap{
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Nav / Slate bar ---------- */
+  .slate{
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .slate .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height: 76px;
+  }
+
+  .slate-mark{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .slate-mark span{ color: var(--accent); }
+
+  .slate-nav{
+    display:flex;
+    gap: 32px;
+    font-size: 15px;
+  }
+
+  .slate-nav a{
+    text-decoration:none;
+    color: var(--ink-soft);
+    transition: color .15s ease;
+  }
+
+  .slate-nav a:hover, .slate-nav a:focus-visible{ color: var(--ink); }
+
+  /* ---------- Header / opening frame ---------- */
+  .opener{
+    padding: 84px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .opener-eyebrow{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  .opener h1{
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 0.98;
+    max-width: 14ch;
+  }
+
+  .opener p{
+    max-width: 52ch;
+    margin-top: 22px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Filter row ---------- */
+  .filters{
+    display:flex;
+    gap: 4px;
+    padding: 28px 0 0;
+  }
+
+  .filter-btn{
+    font-family:'Work Sans', sans-serif;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all .15s ease;
+  }
+
+  .filter-btn:hover{ border-color: var(--ink-soft); }
+
+  .filter-btn.active{
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  /* ---------- Contact sheet grid ---------- */
+  .sheet{
+    padding: 32px 0 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 20px;
+  }
+
+  .frame{
+    background: var(--surface);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .frame-media{
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #EAE8E3, #DAD7D0);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .frame-media img, .frame-media video, .frame-media iframe{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+  }
+
+  .frame-media .placeholder-label{
+    position: absolute;
+    inset: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction: column;
+    gap: 6px;
+    color: #9C988E;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .frame-num{
+    position:absolute;
+    top: 10px;
+    left: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--bg);
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+
+  .frame-tag{
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 11px;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
+
+  .frame-info{
+    padding: 16px 18px 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .frame-info h3{
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .frame-info p{
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .frame[data-type="video"] .frame-media{
+    background: linear-gradient(135deg, #E4DFD8, #CFC9BF);
+  }
+
+  /* ---------- About ---------- */
+  .about{
+    padding: 90px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .about h2{
+    font-size: 40px;
+  }
+
+  .about-copy p{
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    max-width: 50ch;
+  }
+
+  .skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .skills span{
+    font-size: 13px;
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{
+    padding: 90px 0 100px;
+  }
+
+  .contact h2{
+    font-size: 40px;
+    max-width: 16ch;
+  }
+
+  .contact-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 34px;
+  }
+
+  .contact-link{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
+  .contact-meta{
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 24px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .sheet{ grid-template-columns: repeat(2, 1fr); }
+    .about-grid{ grid-template-columns: 1fr; gap: 32px; }
+    .slate-nav{ gap: 20px; font-size: 14px; }
+  }
+
+  @media (max-width: 560px){
+    .wrap{ padding: 0 20px; }
+    .sheet{ grid-template-columns: 1fr; }
+    .opener{ padding: 56px 0 40px; }
+    .contact-row{ align-items: flex-start; flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="slate">
+  <div class="wrap">
+    <div class="slate-mark">MOC TE <span>MEDIA</span></div>
+    <nav class="slate-nav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ OPENER ============ -->
+<section class="opener">
+  <div class="wrap">
+    <div class="opener-eyebrow">Photo &amp; video — selected work</div>
+    <h1>Stories told<br>frame by frame.</h1>
+    <p>I'm [Your Name] — I shoot and edit photo and video. This is a working
+       selection of recent projects, shown here for review.</p>
+  </div>
+</section>
+
+<!-- ============ WORK / CONTACT SHEET ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="photo">Photo</button>
+      <button class="filter-btn" data-filter="video">Video</button>
+    </div>
+
+    <div class="sheet" id="sheet">
+
+      <!-- FRAME 01 — PHOTO EXAMPLE
+           To replace: swap the .placeholder-label div for
+           <img src="your-photo.jpg" alt="short description">
+      -->
+      <div class="frame" data-type="photo">
+        <div class="frame-media">
+          <span class="frame-num">01</span>
+          <span class="frame-tag">Photo</span>
+          <div class="placeholder-label">Replace with<br>your image</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+      <!-- FRAME 02 — VIDEO EXAMPLE (YouTube/Vimeo embed)
+           To replace: swap the .placeholder-label div for an iframe, e.g.
+           <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                   allowfullscreen></iframe>
+      -->
+      <div class="frame" data-type="video">
+        <div class="frame-media">
+          <span class="frame-num">02</span>
+          <span class="frame-tag">Video</span>
+          <div class="placeholder-label">Replace with<br>YouTube / Vimeo embed</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+      <div class="frame" data-type="photo">
+        <div class="frame-media">
+          <span class="frame-num">03</span>
+          <span class="frame-tag">Photo</span>
+          <div class="placeholder-label">Replace with<br>your image</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+      <div class="frame" data-type="video">
+        <div class="frame-media">
+          <span class="frame-num">04</span>
+          <span class="frame-tag">Video</span>
+          <div class="placeholder-label">Replace with<br>YouTube / Vimeo embed</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+      <div class="frame" data-type="photo">
+        <div class="frame-media">
+          <span class="frame-num">05</span>
+          <span class="frame-tag">Photo</span>
+          <div class="placeholder-label">Replace with<br>your image</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+      <div class="frame" data-type="photo">
+        <div class="frame-media">
+          <span class="frame-num">06</span>
+          <span class="frame-tag">Photo</span>
+          <div class="placeholder-label">Replace with<br>your image</div>
+        </div>
+        <div class="frame-info">
+          <h3>Project Title</h3>
+          <p>One line of context — client, date, or location</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <h2>About</h2>
+    <div class="about-copy">
+      <p>Write two or three sentences here about your background — how you
+         got into photo/video, what kind of work you focus on, and what
+         you're looking for next (freelance, in-house, specific industries).</p>
+      <p>Keep it plain and specific. Employers reading this want to know
+         what you can do for them, not a marketing pitch.</p>
+      <div class="skills">
+        <span>Photography</span>
+        <span>Video Editing</span>
+        <span>Color Grading</span>
+        <span>Premiere Pro</span>
+        <span>Lightroom</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Let's work together.</h2>
+    <div class="contact-row">
+      <a class="contact-link" href="mailto:you@moctemedia.com">you@moctemedia.com</a>
+      <div class="contact-meta">
+        Based in [City, State]<br>
+        Available for freelance &amp; full-time work
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© 2026 Moc Te Media</span>
+    <span>moctemedia.com</span>
+  </div>
+</footer>
+
+<script>
+  // Simple filter: show/hide frames by data-type
+  const buttons = document.querySelectorAll('.filter-btn');
+  const frames = document.querySelectorAll('.frame');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      frames.forEach(frame => {
+        const show = filter === 'all' || frame.dataset.type === filter;
+        frame.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
